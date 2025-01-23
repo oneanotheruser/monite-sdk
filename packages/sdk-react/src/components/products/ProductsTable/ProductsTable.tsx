@@ -187,7 +187,7 @@ const ProductsTableBase = ({
     return [
       {
         field: 'name',
-        headerName: t(i18n)`Name, description`,
+        headerName: t(i18n)`Name & description`,
         display: 'flex',
         flex: 3,
         renderCell: (params) => (
@@ -231,7 +231,7 @@ const ProductsTableBase = ({
       },
       {
         field: 'measure_unit_id',
-        headerName: t(i18n)`Units`,
+        headerName: t(i18n)`Unit`,
         flex: 1,
         sortable: false,
         renderCell: (params) => {
@@ -337,7 +337,7 @@ const ProductsTableBase = ({
               isError={isError}
               onCreate={openCreateModal}
               refetch={refetch}
-              entityName={t(i18n)`Products`}
+              entityName={t(i18n)`product or service`}
               actionButtonLabel={t(i18n)`Create new`}
               actionOptions={[t(i18n)`Product`]}
               type="no-data"

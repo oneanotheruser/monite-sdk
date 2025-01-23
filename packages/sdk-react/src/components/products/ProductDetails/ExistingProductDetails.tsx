@@ -161,21 +161,21 @@ const ExistingProductDetailsBase = ({
             <Table>
               <TableBody>
                 <ProductDetailsTableCell
-                  label={t(i18n)`Name:`}
+                  label={t(i18n)`Name`}
                   value={product.name}
                 />
                 <ProductDetailsTableCell
-                  label={t(i18n)`Type:`}
+                  label={t(i18n)`Description`}
+                  value={product.description}
+                />
+                <ProductDetailsTableCell
+                  label={t(i18n)`Type`}
                   value={
                     product.type ? <ProductType type={product.type} /> : null
                   }
                 />
                 <ProductDetailsTableCell
-                  label={t(i18n)`Description:`}
-                  value={product.description}
-                />
-                <ProductDetailsTableCell
-                  label={t(i18n)`Unit:`}
+                  label={t(i18n)`Unit`}
                   value={
                     product.measure_unit_id ? (
                       <MeasureUnit unitId={product.measure_unit_id} />
@@ -185,7 +185,11 @@ const ExistingProductDetailsBase = ({
                   }
                 />
                 <ProductDetailsTableCell
-                  label={t(i18n)`Price:`}
+                  label={t(i18n)`Minimum quantity`}
+                  value={product.smallest_amount}
+                />
+                <ProductDetailsTableCell
+                  label={t(i18n)`Price per unit`}
                   value={
                     product.price
                       ? formatCurrencyToDisplay(
@@ -195,25 +199,21 @@ const ExistingProductDetailsBase = ({
                       : null
                   }
                 />
-                <ProductDetailsTableCell
-                  label={t(i18n)`Smallest amount (units):`}
-                  value={product.smallest_amount}
-                />
               </TableBody>
             </Table>
           </Card>
         </Box>
-        <Typography variant="subtitle2">{t(i18n)`Activity`}</Typography>
+        <Typography variant="subtitle2">{t(i18n)`History`}</Typography>
         <Box mt={2}>
           <Card variant="outlined">
             <Table>
               <TableBody>
                 <ProductDetailsTableCell
-                  label={t(i18n)`Created at:`}
+                  label={t(i18n)`Created on`}
                   value={i18n.date(product.created_at, dateTimeFormat)}
                 />
                 <ProductDetailsTableCell
-                  label={t(i18n)`Last update:`}
+                  label={t(i18n)`Last update`}
                   value={i18n.date(product.updated_at, dateTimeFormat)}
                 />
               </TableBody>
