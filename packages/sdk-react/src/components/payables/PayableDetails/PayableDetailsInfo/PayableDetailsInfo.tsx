@@ -50,6 +50,8 @@ import { OptionalFields } from '../../types';
 import { isPayableInOCRProcessing } from '../../utils/isPayableInOcr';
 import { usePayableDetailsInfo } from './usePayableDetailsInfo';
 
+import { TagsAutocomplete } from '@/ui/tagsAutocomplete';
+
 export interface PayablesDetailsInfoProps
   extends MonitePayableDetailsInfoProps {
   payable: components['schemas']['PayableResponseSchema'];
@@ -356,35 +358,21 @@ const PayableDetailsInfoBase = ({
                     </Box>
                   </TableCell>
                 </TableRow>
-                {showTags && payable.tags && payable.tags.length > 0 && (
+                {showTags && (
                   <TableRow>
                     <StyledLabelTableCell
                       isRequired={
                         isFieldRequired(
                           'tags',
                           ocrRequiredFields,
-                          payable.tags?.[0].id
+                          payable.tags?.[0]?.id
                         ) && payable?.ocr_status === null
                       }
                     >
                       {t(i18n)`Tags`}
                     </StyledLabelTableCell>
                     <TableCell>
-                      <Stack
-                        spacing={1}
-                        direction="row"
-                        useFlexGap
-                        flexWrap="wrap"
-                      >
-                        {payable.tags.map((tag) => (
-                          <Chip
-                            key={tag.id}
-                            label={tag.name}
-                            color="primary"
-                            sx={{ maxWidth: 200 }}
-                          />
-                        ))}
-                      </Stack>
+                      <TagsAutocomplete value={payable.tags || []} />
                     </TableCell>
                   </TableRow>
                 )}

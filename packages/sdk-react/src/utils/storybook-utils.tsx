@@ -41,6 +41,18 @@ export function getRandomItemFromArray<T = unknown>(array: Array<T>): T {
   return array[randomIndex];
 }
 
+export function getSampleFromArray<T = unknown>(array: Array<T>): Array<T> {
+  const sampleSize = getRandomNumber(0, array.length - 1);
+  const shuffled = array.slice();
+  
+  // for (let i = shuffled.length - 1; i > 0; i--) {
+  //   const j = Math.floor(Math.random() * (i + 1));
+  //   [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  // }
+  
+  return shuffled.slice(0, sampleSize);
+}
+
 export function getRandomBoolean(): boolean {
   return Math.random() < 0.5;
 }
