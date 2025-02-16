@@ -138,6 +138,12 @@ const TagsTableBase = ({
         flex: 1,
       },
       {
+        field: 'category',
+        headerName: t(i18n)`Category`,
+        sortable: false,
+        flex: 1,
+      },
+      {
         field: 'created_at',
         headerName: t(i18n)`Created at`,
         flex: 0.5,

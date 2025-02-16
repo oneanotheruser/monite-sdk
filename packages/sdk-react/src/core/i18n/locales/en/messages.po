@@ -1273,7 +1273,7 @@ msgstr "Canadian Dollar"
 #: src/components/receivables/InvoiceDetails/ExistingInvoiceDetails/ExistingReceivableDetails.tsx:268
 #: src/components/tags/ConfirmDeleteModal/ConfirmDeleteModal.test.tsx:24
 #: src/components/tags/ConfirmDeleteModal/ConfirmDeleteModal.tsx:102
-#: src/components/tags/TagFormModal/TagFormModal.tsx:208
+#: src/components/tags/TagFormModal/TagFormModal.tsx:252
 #: src/components/userRoles/consts.ts:77
 #: src/components/userRoles/UserRoleDetails/UserRoleDetailsDialog/UserRoleDetailsDialog.tsx:222
 #: src/components/userRoles/UserRoleDetails/UserRoleDetailsDialog/UserRoleDetailsDialog.tsx:436
@@ -1380,6 +1380,8 @@ msgstr "Carpet/Upholstery Cleaning"
 #: src/components/counterparts/CounterpartsTable/CounterpartsTable.tsx:257
 #: src/components/counterparts/CounterpartsTable/Filters/Filters.tsx:91
 #: src/components/counterparts/CounterpartsTable/Filters/Filters.tsx:94
+#: src/components/tags/TagFormModal/TagFormModal.tsx:232
+#: src/components/tags/TagsTable/TagsTable.tsx:142
 msgid "Category"
 msgstr "Category"
 
@@ -1898,7 +1900,7 @@ msgstr "Court Costs, Including Alimony and Child Support - Courts of Law"
 #: src/components/tags/TagFormModal/TagFormModal.test.tsx:21
 #: src/components/tags/TagFormModal/TagFormModal.test.tsx:85
 #: src/components/tags/TagFormModal/TagFormModal.test.tsx:117
-#: src/components/tags/TagFormModal/TagFormModal.tsx:218
+#: src/components/tags/TagFormModal/TagFormModal.tsx:262
 #: src/components/userRoles/consts.ts:70
 #: src/components/userRoles/UserRoleDetails/UserRoleDetails.test.tsx:71
 #: src/components/userRoles/UserRoleDetails/UserRoleDetailsDialog/UserRoleDetailsDialog.tsx:198
@@ -2004,12 +2006,12 @@ msgstr "Create new product or service"
 #: src/components/tags/Tags.test.tsx:41
 #: src/components/tags/Tags.test.tsx:65
 #: src/components/tags/Tags.tsx:64
-#: src/components/tags/TagsTable/TagsTable.tsx:204
-#: src/components/tags/TagsTable/TagsTable.tsx:263
+#: src/components/tags/TagsTable/TagsTable.tsx:210
+#: src/components/tags/TagsTable/TagsTable.tsx:269
 msgid "Create new tag"
 msgstr "Create new tag"
 
-#: src/components/tags/TagFormModal/TagFormModal.tsx:185
+#: src/components/tags/TagFormModal/TagFormModal.tsx:204
 msgid "Create New Tag"
 msgstr "Create New Tag"
 
@@ -2041,14 +2043,14 @@ msgstr "Create your first product or service"
 
 #: src/components/approvalPolicies/ApprovalPoliciesTable/ApprovalPoliciesTable.tsx:186
 #: src/components/approvalPolicies/ApprovalPoliciesTable/Filters/Filters.tsx:47
-#: src/components/tags/TagsTable/TagsTable.tsx:142
+#: src/components/tags/TagsTable/TagsTable.tsx:148
 msgid "Created at"
 msgstr "Created at"
 
 #: src/components/approvalPolicies/ApprovalPoliciesTable/ApprovalPoliciesTable.tsx:193
 #: src/components/approvalPolicies/useApprovalPolicyTrigger.tsx:80
 #: src/components/receivables/InvoiceDetails/ExistingInvoiceDetails/components/TabPanels/PaymentTabPanel/ManualPaymentRecordDetails.tsx:104
-#: src/components/tags/TagsTable/TagsTable.tsx:158
+#: src/components/tags/TagsTable/TagsTable.tsx:164
 msgid "Created by"
 msgstr "Created by"
 
@@ -2269,7 +2271,7 @@ msgstr "Defaulted"
 #: src/components/tags/TagsTable/TagsTable.test.tsx:380
 #: src/components/tags/TagsTable/TagsTable.test.tsx:411
 #: src/components/tags/TagsTable/TagsTable.test.tsx:442
-#: src/components/tags/TagsTable/TagsTable.tsx:184
+#: src/components/tags/TagsTable/TagsTable.tsx:190
 #: src/components/userRoles/consts.ts:72
 #: src/components/userRoles/UserRoleDetails/UserRoleDetailsDialog/UserRoleDetailsDialog.tsx:206
 msgid "Delete"
@@ -2648,7 +2650,7 @@ msgstr "Ecuador"
 #: src/components/tags/TagsTable/TagsTable.test.tsx:376
 #: src/components/tags/TagsTable/TagsTable.test.tsx:407
 #: src/components/tags/TagsTable/TagsTable.test.tsx:438
-#: src/components/tags/TagsTable/TagsTable.tsx:175
+#: src/components/tags/TagsTable/TagsTable.tsx:181
 #: src/components/userRoles/UserRoleDetails/UserRoleDetails.test.tsx:36
 #: src/components/userRoles/UserRoleDetails/UserRoleDetailsDialog/UserRoleDetailsDialog.tsx:430
 msgid "Edit"
@@ -2730,11 +2732,11 @@ msgstr "Edit recurring settings"
 msgid "Edit Rule"
 msgstr "Edit Rule"
 
-#: src/components/tags/TagFormModal/TagFormModal.tsx:166
+#: src/components/tags/TagFormModal/TagFormModal.tsx:185
 msgid "Edit tag"
 msgstr "Edit tag"
 
-#: src/components/tags/TagFormModal/TagFormModal.tsx:185
+#: src/components/tags/TagFormModal/TagFormModal.tsx:204
 msgid "Edit tag ”{0}”"
 msgstr "Edit tag ”{0}”"
 
@@ -4590,7 +4592,7 @@ msgstr "N/A"
 #: src/components/receivables/InvoiceDetails/CreateReceivable/validation.ts:79
 #: src/components/receivables/InvoiceDetails/ExistingInvoiceDetails/components/sections/PreviewItemsSection.tsx:98
 #: src/components/receivables/InvoiceDetails/InvoiceItems/InvoiceItems.tsx:29
-#: src/components/tags/TagFormModal/TagFormModal.tsx:195
+#: src/components/tags/TagFormModal/TagFormModal.tsx:215
 #: src/components/tags/TagsTable/TagsTable.tsx:136
 #: src/components/userRoles/UserRoleDetails/UserRoleDetailsDialog/UserRoleDetailsDialog.tsx:385
 #: src/components/userRoles/UserRoleDetails/validation.ts:10
@@ -4664,7 +4666,7 @@ msgstr "New Caledonia"
 msgid "New incoming invoice"
 msgstr "New incoming invoice"
 
-#: src/components/tags/TagFormModal/TagFormModal.tsx:130
+#: src/components/tags/TagFormModal/TagFormModal.tsx:147
 msgid "New tag “{0}” created"
 msgstr "New tag “{0}” created"
 
@@ -4843,7 +4845,7 @@ msgstr "No roles found"
 msgid "No rules"
 msgstr "No rules"
 
-#: src/components/tags/TagsTable/TagsTable.tsx:201
+#: src/components/tags/TagsTable/TagsTable.tsx:207
 msgid "No Tags"
 msgstr "No Tags"
 
@@ -6108,7 +6110,7 @@ msgstr "Saudi Riyal"
 #: src/components/receivables/InvoiceDetails/ExistingInvoiceDetails/components/TabPanels/PaymentTabPanel/PaymentRecordForm.tsx:150
 #: src/components/tags/TagFormModal/TagFormModal.test.tsx:155
 #: src/components/tags/TagFormModal/TagFormModal.test.tsx:222
-#: src/components/tags/TagFormModal/TagFormModal.tsx:218
+#: src/components/tags/TagFormModal/TagFormModal.tsx:262
 #: src/components/tags/TagsTable/TagsTable.test.tsx:283
 msgid "Save"
 msgstr "Save"
@@ -6593,14 +6595,14 @@ msgstr "Switzerland"
 msgid "Syrian Arab Republic"
 msgstr "Syrian Arab Republic"
 
-#: src/components/tags/TagsTable/TagsTable.tsx:205
-#: src/components/tags/TagsTable/TagsTable.tsx:207
-#: src/components/tags/TagsTable/TagsTable.tsx:264
+#: src/components/tags/TagsTable/TagsTable.tsx:211
+#: src/components/tags/TagsTable/TagsTable.tsx:213
+#: src/components/tags/TagsTable/TagsTable.tsx:270
 #: src/components/userRoles/consts.ts:43
 msgid "Tag"
 msgstr "Tag"
 
-#: src/components/tags/TagFormModal/TagFormModal.tsx:146
+#: src/components/tags/TagFormModal/TagFormModal.tsx:164
 msgid "Tag “{0}” renamed to “{1}”"
 msgstr "Tag “{0}” renamed to “{1}”"
 
@@ -6608,12 +6610,16 @@ msgstr "Tag “{0}” renamed to “{1}”"
 msgid "Tag “{0}” was deleted"
 msgstr "Tag “{0}” was deleted"
 
+#: src/components/tags/TagFormModal/TagFormModal.tsx:165
+msgid "Tag “{0}” was updated”"
+msgstr "Tag “{0}” was updated”"
+
 #: src/components/approvalPolicies/ApprovalPolicyDetails/ApprovalPolicyForm/ApprovalPolicyForm.tsx:909
 #: src/components/approvalPolicies/useApprovalPolicyTrigger.tsx:69
 #: src/components/payables/PayableDetails/PayableDetailsForm/PayableDetailsForm.tsx:664
 #: src/components/payables/PayableDetails/PayableDetailsInfo/PayableDetailsInfo.tsx:370
 #: src/components/tags/Tags.tsx:52
-#: src/components/tags/TagsTable/TagsTable.tsx:262
+#: src/components/tags/TagsTable/TagsTable.tsx:268
 msgid "Tags"
 msgstr "Tags"
 
@@ -7300,7 +7306,7 @@ msgstr "Update PDF file with payment info"
 msgid "Update Vat Id"
 msgstr "Update Vat Id"
 
-#: src/components/tags/TagsTable/TagsTable.tsx:150
+#: src/components/tags/TagsTable/TagsTable.tsx:156
 msgid "Updated at"
 msgstr "Updated at"
 
@@ -7446,7 +7452,7 @@ msgstr "Value Added Tax (Ukraine)"
 msgid "Value Added Tax (United Kingdom)"
 msgstr "Value Added Tax (United Kingdom)"
 
-#: src/components/tags/TagFormModal/TagFormModal.tsx:33
+#: src/components/tags/TagFormModal/TagFormModal.tsx:40
 msgid "Value must be at most {255} characters"
 msgstr "Value must be at most {255} characters"
 
@@ -7753,7 +7759,7 @@ msgstr "You can create your first quote."
 msgid "You can create your first role."
 msgstr "You can create your first role."
 
-#: src/components/tags/TagsTable/TagsTable.tsx:203
+#: src/components/tags/TagsTable/TagsTable.tsx:209
 msgid "You can create your first tag."
 msgstr "You can create your first tag."
 
@@ -7814,7 +7820,7 @@ msgstr "You don’t have any quotes yet."
 msgid "You don’t have any roles yet."
 msgstr "You don’t have any roles yet."
 
-#: src/components/tags/TagsTable/TagsTable.tsx:202
+#: src/components/tags/TagsTable/TagsTable.tsx:208
 msgid "You don’t have any tags yet."
 msgstr "You don’t have any tags yet."
 
