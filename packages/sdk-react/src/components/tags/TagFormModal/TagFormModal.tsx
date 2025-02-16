@@ -3,10 +3,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
 import { components } from '@/api';
-import { useMoniteContext } from '@/core/context/MoniteContext';
 import { MoniteScopedProviders } from '@/core/context/MoniteScopedProviders';
 import { useRootElements } from '@/core/context/RootElementsProvider';
-import { getAPIErrorMessage } from '@/core/utils/getAPIErrorMessage';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { I18n } from '@lingui/core';
 import { t } from '@lingui/macro';
@@ -19,9 +17,27 @@ import {
   DialogTitle,
   Divider,
   TextField,
+  Select,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Stack,
+  Autocomplete,
 } from '@mui/material';
 
 import * as yup from 'yup';
+
+import { useTags } from '../useTags';
+
+export const tagCategories = [
+  'document_type',
+  'department',
+  'project',
+  'cost_center',
+  'vendor_type',
+  'payment_method',
+  'approval_status',
+];
 
 const getValidationSchema = (i18n: I18n) =>
   yup
@@ -30,13 +46,22 @@ const getValidationSchema = (i18n: I18n) =>
       name: yup
         .string()
         .required()
-        .max(255, t(i18n)`Value must be at most ${'255'} characters`),
+        .max(255, t(i18n)`Value must be at most '255' characters`),
+      category: yup.string().optional().oneOf(tagCategories),
+      keywords: yup.array().of(
+        yup
+          .string()
+          .min(2, t(i18n)`Keyword should be at least 2 characters long`)
+          .max(25, t(i18n)`Keyword should be at most 25 characters long`)
+      ),
     })
     .required();
 
 interface ITag {
   id: string;
   name: string;
+  category?: components['schemas']['ReceivableTagCategory'];
+  keywords?: string[];
 }
 
 interface TagFormModalProps {
@@ -51,6 +76,8 @@ interface TagFormModalProps {
 
 interface FormFields {
   name: string;
+  category: components['schemas']['ReceivableTagCategory'];
+  keywords: components['schemas']['OcrAutoTaggingSettingsRequest']['keywords'];
 }
 
 /**
@@ -73,84 +100,45 @@ const TagFormModalBase = ({
   open,
 }: TagFormModalProps) => {
   const { i18n } = useLingui();
-  const { api, queryClient } = useMoniteContext();
-  const { control, handleSubmit, reset, setError } = useForm<FormFields>({
+  const {
+    control,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors },
+  } = useForm<FormFields>({
     resolver: yupResolver(getValidationSchema(i18n)),
-    defaultValues: { name: tag?.name || '' },
   });
-  const tagCreateMutation = api.tags.postTags.useMutation(
-    {},
-    {
-      onSuccess: () => api.tags.getTags.invalidateQueries(queryClient),
-      onError: (error) => {
-        const errorMessage = getAPIErrorMessage(i18n, error);
-        if (errorMessage === 'This tag already exists.') {
-          setError('name', { type: 'custom', message: errorMessage });
-        } else {
-          toast.error(errorMessage);
-        }
-      },
-    }
-  );
-
-  const tag_id = tag?.id;
-
-  const tagUpdateMutation = api.tags.patchTagsId.useMutation(
-    {
-      path: {
-        tag_id: tag_id ?? '',
-      },
-    },
-    {
-      onSuccess: () =>
-        Promise.all([
-          api.tags.getTags.invalidateQueries(queryClient),
-          api.tags.getTagsId.invalidateQueries(
-            { parameters: { path: { tag_id } } },
-            queryClient
-          ),
-        ]),
-      onError: (error) => {
-        toast.error(getAPIErrorMessage(i18n, error));
-      },
-    }
-  );
 
   useEffect(() => {
     reset({
       name: tag?.name || '',
+      category: tag?.category,
+      keywords: tag?.keywords || [],
     });
-  }, [reset, tag?.name]);
+  }, [reset, tag]);
 
-  const createTag = (name: string) => {
-    tagCreateMutation.mutate(
-      { name },
-      {
-        onSuccess: (tag) => {
-          toast.success(t(i18n)`New tag “${tag.name}” created`);
-          onCreate?.(tag);
-          onClose?.();
-        },
+  const { createTag, updateTag, inProgress, updateOcrAutoTagging } = useTags({
+    setNameError: (errorMessage) => {
+      setError('name', { type: 'custom', message: errorMessage });
+    },
+    onTagCreated: (createdTag) => {
+      toast.success(t(i18n)`New tag “${createdTag.name}” created`);
+      onCreate?.(createdTag);
+      onClose?.();
+    },
+    onTagUpdated: (updatedTag) => {
+      if (tag) {
+        toast.success(
+          tag.name !== updatedTag.name
+            ? t(i18n)`Tag “${tag.name}” renamed to “${updatedTag.name}”`
+            : t(i18n)`Tag “${tag.name}” was updated”`
+        );
       }
-    );
-  };
-
-  const updateTag = (tag: ITag, name: string) => {
-    tagUpdateMutation.mutate(
-      {
-        name,
-      },
-      {
-        onSuccess: (updatedTag) => {
-          toast.success(
-            t(i18n)`Tag “${tag.name}” renamed to “${updatedTag.name}”`
-          );
-          onUpdate?.(updatedTag);
-          onClose?.();
-        },
-      }
-    );
-  };
+      onUpdate?.(updatedTag);
+      onClose?.();
+    },
+  });
 
   const { root } = useRootElements();
 
@@ -177,30 +165,101 @@ const TagFormModalBase = ({
         <form
           id={formName}
           name={formName}
-          onSubmit={handleSubmit((values) => {
-            tag ? updateTag(tag, values.name) : createTag(values.name);
+          onSubmit={handleSubmit(async (values) => {
+            const { keywords, ...rest } = values;
+            const result = await (tag
+              ? updateTag(tag.id, rest)
+              : createTag(rest));
+
+            updateOcrAutoTagging(result.id, keywords);
           })}
         >
           <DialogTitle variant="h3">
             {tag ? t(i18n)`Edit tag ”${tag.name}”` : t(i18n)`Create New Tag`}
           </DialogTitle>
           <DialogContent>
-            <Controller
-              name="name"
-              control={control}
-              render={({ field, fieldState }) => (
-                <TextField
-                  id={field.name}
-                  autoFocus
-                  label={t(i18n)`Name`}
-                  variant="standard"
-                  fullWidth
-                  error={Boolean(fieldState.error)}
-                  helperText={fieldState.error?.message}
-                  {...field}
-                />
-              )}
-            />
+            <Stack spacing={3}>
+              <Controller
+                name="name"
+                control={control}
+                render={({ field, fieldState }) => (
+                  <TextField
+                    id={field.name}
+                    autoFocus
+                    label={t(i18n)`Name`}
+                    variant="standard"
+                    fullWidth
+                    error={Boolean(fieldState.error)}
+                    helperText={fieldState.error?.message}
+                    {...field}
+                  />
+                )}
+              />
+              <Controller
+                name="category"
+                control={control}
+                render={({ field }) => (
+                  <FormControl variant="standard" fullWidth>
+                    <InputLabel id={field.name}>{t(i18n)`Category`}</InputLabel>
+                    <Select
+                      labelId={field.name}
+                      MenuProps={{ container: root }}
+                      {...field}
+                    >
+                      <MenuItem value={undefined}>{t(i18n)`Not set`}</MenuItem>
+                      {tagCategories.map((category) => (
+                        <MenuItem key={category} value={category}>
+                          {category}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                )}
+              />
+              <Controller
+                name="keywords"
+                control={control}
+                render={({ field, fieldState: { error } }) => (
+                  <>
+                    <Autocomplete
+                      {...field}
+                      id={field.name}
+                      multiple
+                      options={[]}
+                      filterOptions={(_, params) =>
+                        params.inputValue ? [params.inputValue] : []
+                      }
+                      freeSolo
+                      onChange={(_, data) => {
+                        const words = data.flatMap((input) =>
+                          input.split(' ').filter(Boolean)
+                        );
+
+                        field.onChange(words);
+                      }}
+                      slotProps={{
+                        popper: {
+                          container: root,
+                        },
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label={t(i18n)`Keywords`}
+                          variant="standard"
+                          fullWidth
+                          error={Boolean(error)}
+                          helperText={
+                            errors.keywords?.find?.((error) => Boolean(error))
+                              ?.message
+                          }
+                        />
+                      )}
+                    />
+                  </>
+                )}
+              />
+            </Stack>
           </DialogContent>
           <Divider />
           <DialogActions>
@@ -210,9 +269,7 @@ const TagFormModalBase = ({
             <Button
               variant="outlined"
               color="primary"
-              disabled={
-                tagCreateMutation.isPending || tagUpdateMutation.isPending
-              }
+              disabled={inProgress}
               type="submit"
             >
               {tag ? t(i18n)`Save` : t(i18n)`Create`}
